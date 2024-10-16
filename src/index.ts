@@ -38,7 +38,6 @@ async function createHeliaNode() {
     blockstore,
     datastore,
     libp2p: {
-      
       peerDiscovery: [
         mdns(),
         bootstrap({
@@ -63,7 +62,6 @@ async function createHeliaNode() {
       ],
 
       addresses: {
-      
         listen: [
           // add a listen address (localhost) to accept TCP connections on a random port
           // '/dns4/6.tcp.eu.ngrok.io/tcp/11576',
@@ -75,12 +73,10 @@ async function createHeliaNode() {
           // '/ip4/188.169.241.111/tcp/6969',
         ],
       },
-,
       transports: [tcp()],
       connectionEncrypters: [noise()],
       streamMuxers: [yamux()],
       services: {
-        // nat
         identify: identify(),
       },
     },
