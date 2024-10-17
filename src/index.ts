@@ -104,7 +104,13 @@ async function createHeliaNode() {
         console.log('Attempting to add file to IPFS')
         const cid = await fs.addBytes(fileData)
         console.log(`File pinned successfully. CID: ${cid.toString()}`)
-
+        
+        await helia.routing.provide(cid, {
+          onProgress: (evt) => {
+            console.info(`file Publish progress "${evt.type}" detail:`, evt.detail)
+          }
+        })
+        
         res.json({ cid: cid.toString() })
       } catch (error) {
         console.error('Error pinning the file:', error)
