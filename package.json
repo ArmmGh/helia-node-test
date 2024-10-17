@@ -18,11 +18,19 @@
     "@types/node": "^22.7.5",
     "blockstore-core": "^5.0.2",
     "blockstore-level": "^2.0.1",
+    "cors": "^2.8.5",
     "datastore-core": "^10.0.2",
     "datastore-level": "^11.0.1",
+    "express": "^4.21.1",
     "helia": "^5.0.1",
+    "multer": "^1.4.5-lts.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/multer": "^1.4.12"
+  }
 }
