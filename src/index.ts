@@ -54,7 +54,11 @@ async function createHeliaNode() {
 
 ;(async () => {
   try {
-    await createHeliaNode()
+    const { helia } = await createHeliaNode()
+
+    console.log('Local Helia node multi Addresses: ', helia.libp2p.getMultiaddrs())
+
+    console.log(`Local Helia node is running with peer ID: ${helia.libp2p.peerId.toString()}`)
 
     const app = express()
     app.use(cors({ origin: '*' }))
@@ -86,6 +90,34 @@ async function createHeliaNode() {
         console.error('Error pinning the file:', error)
         const errorMessage = error instanceof Error ? error.message : 'Unknown error'
         res.status(500).send(`Failed to pin the file: ${errorMessage}`)
+      }
+    })
+
+    app.get('/pin/:cid', async (req: any, res: any) => {
+      const { cid } = req.params
+
+      if (!fs) {
+        console.error('Helia node is not ready')
+        return res.status(500).send('Helia node is not ready.')
+      }
+
+      try {
+        console.log(`Checking if CID ${cid} is pinned`)
+        const fileContent = await fs.cat(cid)
+        const chunks = []
+
+        for await (const chunk of fileContent) {
+          chunks.push(chunk)
+        }
+
+        const fileBuffer = Buffer.concat(chunks)
+        console.log(`CID ${cid} is pinned and content retrieved successfully`)
+
+        res.send(fileBuffer)
+      } catch (error) {
+        console.error(`Error retrieving content for CID ${cid}:`, error)
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+        res.status(500).send(`Failed to retrieve content for CID ${cid}: ${errorMessage}`)
       }
     })
 
