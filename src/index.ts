@@ -36,6 +36,7 @@ async function createHeliaNode() {
       ],
       addresses: {
         listen: ['/ip4/0.0.0.0/tcp/6969'],
+        announce: ['/ip4/3.65.60.26/tcp/6969']
       },
       transports: [tcp()],
       connectionEncrypters: [noise()],
