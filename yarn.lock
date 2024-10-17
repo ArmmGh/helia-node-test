@@ -164,7 +164,7 @@
     multiformats "^13.1.0"
     progress-events "^1.0.0"
 
-"@helia/delegated-routing-v1-http-api-client@^4.0.0":
+"@helia/delegated-routing-v1-http-api-client@^4.0.0", "@helia/delegated-routing-v1-http-api-client@^4.1.0":
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/@helia/delegated-routing-v1-http-api-client/-/delegated-routing-v1-http-api-client-4.1.0.tgz#d7674f99c88499cbdf158f0881858f6c604b4dac"
   integrity sha512-zeh1Hn3GZ8+QNcfdGL+iTLJC0avfFagp7rM0HydHp14c//Z+Zf5i+M6Yd5OLD764pPGD3ja/IVoP6idugiczNg==
@@ -445,7 +445,7 @@
     progress-events "^1.0.0"
     uint8arraylist "^2.4.8"
 
-"@libp2p/kad-dht@^14.0.0":
+"@libp2p/kad-dht@^14.0.0", "@libp2p/kad-dht@^14.0.1":
   version "14.0.1"
   resolved "https://registry.yarnpkg.com/@libp2p/kad-dht/-/kad-dht-14.0.1.tgz#57a4ef13ba2d4c838d7ef1dfe58ddc7729e778e6"
   integrity sha512-cRPJRWMeYkf7zInAz31LydtvS2+6nY/guHVLqMBwLdInsun8UkA837aN5ds7n9Y12yLFG5rhZjt5/07NMQ37gg==
@@ -605,7 +605,7 @@
     uint8arraylist "^2.4.8"
     uint8arrays "^5.1.0"
 
-"@libp2p/ping@^2.0.0":
+"@libp2p/ping@^2.0.0", "@libp2p/ping@^2.0.8":
   version "2.0.8"
   resolved "https://registry.yarnpkg.com/@libp2p/ping/-/ping-2.0.8.tgz#310d6eb49fbd464824e3734ee7b3d9e26cc17317"
   integrity sha512-cai7lUNjjSw7EPrC7cG2Y0nYnxzMVoHMkSMHQH9YILVtyE+RzgL+PiO22R0sVzdY8nEQKKpwFrxrfQgQvi4asw==
@@ -750,7 +750,7 @@
     uint8arraylist "^2.4.8"
     uint8arrays "^5.1.0"
 
-"@libp2p/websockets@^9.0.0":
+"@libp2p/websockets@^9.0.0", "@libp2p/websockets@^9.0.8":
   version "9.0.8"
   resolved "https://registry.yarnpkg.com/@libp2p/websockets/-/websockets-9.0.8.tgz#ace67439b25346abeb93f867ee48fddbad324fe2"
   integrity sha512-kqvdoeCGqdMjhekTeUCbzAhhrLw+cSI6bD1GdW/MOK5c5MffZ63MTZW+dT5PIVB3MviwVTRP1ogHS1X5UqMwUA==
