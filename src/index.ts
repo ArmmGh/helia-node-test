@@ -12,6 +12,9 @@ import { kadDHT } from '@libp2p/kad-dht'
 import { bootstrap } from '@libp2p/bootstrap'
 import { ping } from '@libp2p/ping'
 import { identify } from '@libp2p/identify'
+import { enable } from '@libp2p/logger'
+
+enable('libp2p:kad-dht*')
 
 const upload = multer()
 const blockstore = new LevelBlockstore('blockstore')
@@ -52,7 +55,7 @@ async function createHeliaNode() {
       ],
       addresses: {
         listen: ['/ip4/0.0.0.0/tcp/6969'],
-        announce: ['/ip4/3.65.60.26/tcp/6969']
+        announce: ['/ip4/3.65.60.26/tcp/6969'],
       },
       transports: [tcp()],
       connectionEncrypters: [noise()],
