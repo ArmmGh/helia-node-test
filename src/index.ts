@@ -14,7 +14,7 @@ import { ping } from '@libp2p/ping'
 import { identify } from '@libp2p/identify'
 import { enable } from '@libp2p/logger'
 
-enable('libp2p:kad-dht*')
+// enable('libp2p:kad-dht*')
 
 const upload = multer()
 const blockstore = new LevelBlockstore('blockstore')
@@ -55,6 +55,7 @@ async function createHeliaNode() {
       ],
       addresses: {
         listen: ['/ip4/0.0.0.0/tcp/6969'],
+        // announce: ['/ip4/192.168.0.182/tcp/6969'],
         announce: ['/ip4/3.65.60.26/tcp/6969'],
       },
       transports: [tcp()],
@@ -88,12 +89,12 @@ async function createHeliaNode() {
 
       if (!req.file) {
         console.error('No file received in the request')
-        return res.status(400).send('No file uploaded.')
+        return res.status(400).json({ error: 'No file uploaded.' })
       }
 
       if (!fs) {
         console.error('Helia node is not ready')
-        return res.status(500).send('Helia node is not ready.')
+        return res.status(500).json({ error: 'Helia node is not ready.' })
       }
 
       try {
@@ -105,21 +106,25 @@ async function createHeliaNode() {
         const cid = await fs.addBytes(fileData)
         console.log(`File pinned successfully. CID: ${cid.toString()}`)
 
-        for await (const event of helia.libp2p.services.dht.provide(cid)) {
-          console.log('DHT provide event: ', event)
-        }
-
-        // await helia.routing.provide(cid, {
-        //   onProgress: (evt) => {
-        //     console.info(`file Publish progress "${evt.type}" detail:`, evt.detail)
-        //   }
-        // })
-
+        // Immediately send response back to client
         res.json({ cid: cid.toString() })
+
+        // Run DHT provide in the background
+        ;(async () => {
+          try {
+            // @ts-ignore
+            for await (const event of helia.libp2p.services.dht.provide(cid)) {
+              console.log('DHT provide event: ', event)
+            }
+            console.log(`Successfully provided CID: ${cid.toString()} to DHT`)
+          } catch (error) {
+            console.error(`Error providing CID ${cid.toString()} to DHT:`, error)
+          }
+        })()
       } catch (error) {
         console.error('Error pinning the file:', error)
         const errorMessage = error instanceof Error ? error.message : 'Unknown error'
-        res.status(500).send(`Failed to pin the file: ${errorMessage}`)
+        res.status(500).json({ error: `Failed to pin the file: ${errorMessage}` })
       }
     })
 
