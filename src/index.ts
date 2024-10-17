@@ -12,7 +12,10 @@ import { mdns } from '@libp2p/mdns'
 import { ping } from '@libp2p/ping'
 import { kadDHT } from '@libp2p/kad-dht'
 import { webSockets } from '@libp2p/websockets'
-import {createDelegatedRoutingV1HttpApiClient, DelegatedRoutingV1HttpApiClient} from '@helia/delegated-routing-v1-http-api-client'
+import {
+  createDelegatedRoutingV1HttpApiClient,
+  DelegatedRoutingV1HttpApiClient,
+} from '@helia/delegated-routing-v1-http-api-client'
 
 const addListeners = (libp2p: Libp2p) => {
   libp2p.addEventListener('peer:connect', (evt) => {
@@ -53,15 +56,15 @@ async function createHeliaNode() {
             '/dnsaddr/bootstrap.libp2p.io/p2p/QmQCU2EcMqAqQPR2i9bChDtGNJchTbq5TbXJJ16u19uLTa',
             '/dnsaddr/bootstrap.libp2p.io/p2p/QmcZf59bWwK5XFi76CZX8cbJ4BhTzzA3gU1ZjYZcYW3dwt',
 
-            //'/ip4/104.131.131.82/tcp/4001/ipfs/QmaCpDMGvV2BGHeYERUEnRQAwe3N8SzbUtfsmvsqQLuvuJ',
-            //'/ip4/104.236.179.241/tcp/4001/ipfs/QmSoLPppuBtQSGwKDZT2M73ULpjvfd3aZ6ha4oFGL1KrGM',
-            //'/ip4/128.199.219.111/tcp/4001/ipfs/QmSoLSafTMBsPKadTEgaXctDQVcqN88CNLHXMkTNwMKPnu',
-            //'/ip4/104.236.76.40/tcp/4001/ipfs/QmSoLV4Bbm51jM9C4gDYZQ9Cy3U6aXMJDAbzgu2fzaDs64',
-            //'/ip4/178.62.158.247/tcp/4001/ipfs/QmSoLer265NRgSp2LA3dPaeykiS1J6DifTC88f5uVQKNAd',
-            //'/ip6/2604:a880:1:20::203:d001/tcp/4001/ipfs/QmSoLPppuBtQSGwKDZT2M73ULpjvfd3aZ6ha4oFGL1KrGM',
-            //'/ip6/2400:6180:0:d0::151:6001/tcp/4001/ipfs/QmSoLSafTMBsPKadTEgaXctDQVcqN88CNLHXMkTNwMKPnu',
-            //'/ip6/2604:a880:800:10::4a:5001/tcp/4001/ipfs/QmSoLV4Bbm51jM9C4gDYZQ9Cy3U6aXMJDAbzgu2fzaDs64',
-            //'/ip6/2a03:b0c0:0:1010::23:1001/tcp/4001/ipfs/QmSoLer265NRgSp2LA3dPaeykiS1J6DifTC88f5uVQKNAd',
+            '/ip4/104.131.131.82/tcp/4001/ipfs/QmaCpDMGvV2BGHeYERUEnRQAwe3N8SzbUtfsmvsqQLuvuJ',
+            '/ip4/104.236.179.241/tcp/4001/ipfs/QmSoLPppuBtQSGwKDZT2M73ULpjvfd3aZ6ha4oFGL1KrGM',
+            '/ip4/128.199.219.111/tcp/4001/ipfs/QmSoLSafTMBsPKadTEgaXctDQVcqN88CNLHXMkTNwMKPnu',
+            '/ip4/104.236.76.40/tcp/4001/ipfs/QmSoLV4Bbm51jM9C4gDYZQ9Cy3U6aXMJDAbzgu2fzaDs64',
+            '/ip4/178.62.158.247/tcp/4001/ipfs/QmSoLer265NRgSp2LA3dPaeykiS1J6DifTC88f5uVQKNAd',
+            '/ip6/2604:a880:1:20::203:d001/tcp/4001/ipfs/QmSoLPppuBtQSGwKDZT2M73ULpjvfd3aZ6ha4oFGL1KrGM',
+            '/ip6/2400:6180:0:d0::151:6001/tcp/4001/ipfs/QmSoLSafTMBsPKadTEgaXctDQVcqN88CNLHXMkTNwMKPnu',
+            '/ip6/2604:a880:800:10::4a:5001/tcp/4001/ipfs/QmSoLV4Bbm51jM9C4gDYZQ9Cy3U6aXMJDAbzgu2fzaDs64',
+            '/ip6/2a03:b0c0:0:1010::23:1001/tcp/4001/ipfs/QmSoLer265NRgSp2LA3dPaeykiS1J6DifTC88f5uVQKNAd',
           ],
         }),
       ],
@@ -71,23 +74,23 @@ async function createHeliaNode() {
           // add a listen address (localhost) to accept TCP connections on a random port
           // '/dns4/6.tcp.eu.ngrok.io/tcp/11576',
           // '/ip4/127.0.0.1/tcp/6969',
-           '/ip4/0.0.0.0/tcp/6969',
-	  //'/ip4/127.0.0.1/tcp/6969',
-	  //'/ip4/3.65.60.26/tcp/6969',
-	  // '/ip4/0.0.0.0/tcp/6969',
+          '/ip4/0.0.0.0/tcp/6969',
+          //'/ip4/127.0.0.1/tcp/6969',
+          //'/ip4/3.65.60.26/tcp/6969',
+          // '/ip4/0.0.0.0/tcp/6969',
           // '/dns4/telebit.cloud/tcp/49616',
           // '/dns4/telebit.cloud/tcp/49616',
           // '/ip4/188.169.241.111/tcp/6969',
         ],
       },
-      transports: [webSockets(),tcp()],
+      transports: [webSockets(), tcp()],
       connectionEncrypters: [noise()],
       streamMuxers: [yamux()],
       services: {
         identify: identify(),
-	delegatedRouting: () => delegatedClient,
-	ping: ping(),
-	dht: kadDHT({ clientMode: false })
+        delegatedRouting: () => delegatedClient,
+        ping: ping(),
+        dht: kadDHT({ clientMode: false }),
       },
     },
   })
